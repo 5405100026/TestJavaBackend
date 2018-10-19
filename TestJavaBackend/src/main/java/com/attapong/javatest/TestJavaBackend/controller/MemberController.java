@@ -33,14 +33,8 @@ public class MemberController {
 	
 	@PostMapping("/register")
 	public String createStudent(@RequestBody Member member) throws MemberExcption {
-
-		
 	
-		Member	savedStudent = memberRepository.save(service.saveMember(member));
-
-	/*	URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(savedStudent.getId()).toUri();*/
-
+		memberRepository.save(service.saveMember(member));
 		return jwtGenerator.generate(member);
 
 	}
