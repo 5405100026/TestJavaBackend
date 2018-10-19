@@ -15,7 +15,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.attapong.javatest.TestJavaBackend.handleexception.MemberExcption;
 import com.attapong.javatest.TestJavaBackend.jpa.MemberRepository;
+import com.attapong.javatest.TestJavaBackend.model.JwtUser;
 import com.attapong.javatest.TestJavaBackend.model.Member;
+import com.attapong.javatest.TestJavaBackend.security.JwtGenerator;
 import com.attapong.javatest.TestJavaBackend.service.MemberService;
 
 @RestController
@@ -27,22 +29,27 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
-	@GetMapping("/getMembers")
+	@Autowired
+	private JwtGenerator jwtGenerator;
+	
+	@GetMapping("/api/getMembers")
 	public List<Member> retrieveAllMemberInfomation() {
 		return memberRepository.findAll();
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<Object> createStudent(@RequestBody Member member) throws MemberExcption {
+	public String createStudent(@RequestBody Member member) throws MemberExcption {
 
-		Member savedStudent;
+		
 	
-			savedStudent = memberRepository.save(service.saveMember(member));
+		Member	savedStudent = memberRepository.save(service.saveMember(member));
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(savedStudent.getId()).toUri();
+	/*	URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(savedStudent.getId()).toUri();*/
 
-		return ResponseEntity.created(location).build();
+		return jwtGenerator.generate(member);
 
 	}
+	
+
 }
