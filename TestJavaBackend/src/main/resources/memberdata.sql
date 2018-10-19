@@ -1,3 +1,5 @@
+
+IF not EXISTS member
 create table member
 (
  id integer not null,
