@@ -24,6 +24,8 @@ public class JwtValidator {
             member = new Member();
 
             member.setUsername(body.getSubject());
+            member.setPhone((String) body.get("phone"));
+            member.setPassword((String) body.get("password"));
         }
         catch (Exception e) {
             System.out.println(e);

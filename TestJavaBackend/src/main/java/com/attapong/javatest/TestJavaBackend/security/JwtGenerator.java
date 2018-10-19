@@ -15,6 +15,8 @@ public class JwtGenerator {
 
         Claims claims = Jwts.claims()
                 .setSubject(member.getUsername());
+                 claims.put("phone", member.getPhone());
+                 claims.put("password", member.getPassword());
 
 
         return Jwts.builder()

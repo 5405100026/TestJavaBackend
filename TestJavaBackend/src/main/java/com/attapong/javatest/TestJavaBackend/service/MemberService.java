@@ -25,9 +25,9 @@ public class MemberService {
 		
 		if(member.getSalary() > 50000) {
 			member.setMemberType("Platinum");
-		}else if(member.getSalary() > 30000 && member.getSalary() < 50000) {
+		}else if(member.getSalary() > 30000 || member.getSalary() < 50000) {
 			member.setMemberType("Gold");
-		}else if(member.getSalary() < 30000 && member.getSalary() > 15000) {
+		}else if(member.getSalary() > 15000 || member.getSalary() < 30000) {
 			member.setMemberType("Silver");
 		}else {
 			throw new MemberExcption("TestJavaBackend", Constant.ERR_CODE_LESS_SALARY, Constant.ERR_DESC_LESS_SALARY);
