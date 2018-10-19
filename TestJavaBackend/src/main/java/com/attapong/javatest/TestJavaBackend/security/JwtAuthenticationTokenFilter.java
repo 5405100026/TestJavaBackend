@@ -30,6 +30,8 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
 
         String authenticationToken = header.substring(6);
 
+        System.out.println("authenticationToken :"+authenticationToken);
+        
         JwtAuthenticationToken token = new JwtAuthenticationToken(authenticationToken);
         return getAuthenticationManager().authenticate(token);
     }
